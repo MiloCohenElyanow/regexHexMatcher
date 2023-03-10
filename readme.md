@@ -1,36 +1,50 @@
 
 # Regex HexCode Matcher
 
+## Intro
+
+ This project is meant to be my introduction into Gist's, Githubs social platform for sharing codebits, knowledge, and teaching others on how to use the knowledge shared. For this Gist project I chose to create a tutorial on how to use a regex hex code matcher. Regex meaning regular expresion, which are in most programming languages these days, regular expresions are used to make the matching, searching, or really working with strings much easier. Generaly in most languages even now there is not much functionality for searching and or matching strings for things or against other strings respectively. Regex accomplishes this task. Regex allows for multitudes of different string searching and matching functions. I.E I want to search this string to see if it has an i before an e but it must not come before a c. With regular javascript I can barely imagine how to even begin to tackle this problem without using some kind of node package. Using Regex this is a very very simple string match(ourstring, [A-Za-z]*(cei | [^c] ie) [A-Za-z]*). You totally dont know what this regex means right now, all it does is return true when we pass in our string and if that string has i before e with no c before, and false when we have an i before an e with a c before, or when there is no i before an e at all! It looks pretty scary and complicated, I KNOW. But using these Regex's could end up slimming down your code massivly in the future and make it look much cleaner! So if you want to jump straight into the deep end like I do, I think you will benefit from this tutorial. I will teach you in depth about how a hex code regex works, how to use it, and why its important!
+
 ## Table of Contents
 
-[tutorial](#tutorial)
-  -[part1](#part-1)
-  -[part2](#part-2)
-  -[part3](#part-3)
-  -[part4](#part-4)
+  -[Intro](#intro)
+  -[Summary](#summary)
+  -[matching the hashtag](#matching_the_hashtag)
+  -[Matching Alphanumerics](#matching_alphanumerics)
+  -[Or Operator](#or_operator)
+  -[breaking the regex](#breaking_the_regex)
+  -[Testing](#testing)
+  -[About Me](#about_me)
+
+## Summary
+
+  In this tutorial we are working with a commonly used regex, it is the hex matcher: /^#?([a-f0-9]{6}|[a-f0-9]{3})$/. First to understand what this regex should be doing, we should probably understand what a hex even is. A hex color code is a 6-symbol code made of up to three 2-symbol elements. IE. I6 E7 B4, would be a hex code. Now I want to be really clear, hex codes are most often used for color, but there is another large reference of hexidecimal Binaries, that we don't need to get into, but for know just remeber they both exist, are both valid, and this regex we are using today will match both. Back to the main point. Briefly this regex matches 6 characters which must follow the pattern: a letter, either upper or lower case but must not excede f in the alphabet, or a number 0 through 9, and there will be a total of 6 OR 3 of these, and this letter number combination must be preceded by a hashtag. That is essentialy what this regex does, and it should always match a hex code, since a hex code will ALWAYS be in that format. Now lets dive deeper.
 
 ## Tutorial
 
-  the regex we are working with is: /^#?([a-f0-9]{6}|[a-f0-9]{3})$/
-  lets break it down into sections >
+  This tutorial will break the regex into multiple section which are matching_the_hashtag, Matching_Alphanumerics, Or_Operator, and breaking_the_regex. all of these sections combined make up the entire regex "function" if you will, but for every regex out there we can break them down as I have done here, all of the Regexes's I have seen so far are all lots of little regex pieces combined to make one big regex. So let's start at matching_the_hashtag
 
-### part 1
+### matching_the_hashtag
 
-/^#?   ^ means match any first character, in this case the first character must be a #, and the ? means this must be followed by- part2>
+/^#?      starting with this bit here we have a /, ^, #, and a ?. To start easily we know we are trying to match a hashtag, and that hashtag is right there. So what do the other symbols mean. The / is essentialy opening a regex function, it's telling out code that we are about to define the regex we are using, that means that there must also be something telling our code to close the regex, in this case we will just repeat the / again at the end, but we will come back to that later. The ^ is called an assertion, assertions declare the endings and or beginings of lines or words/ strings. In this case we are asserting the begining of the the regex, in this specific case the ^ is followed by #? meaning nothing will come before the hashtag, and there must always be a hashtag at the begining. To give a bit more context the ? is generally part of an assertion, the ? says followed by, and that brings us to matching the alphanumerics.
 
-### part 2
+### Matching_Alphanumerics
 
-skipping the brackets... you can assume they do the same thing as they would in js... [a-f0-9]  {6}    a-f will mean any english alphabetical character between and including a through f, likewise with 0-9,[a-f0-9] in total meaning any character a through f or any number 0-9. Lastly {6} all this means is there must be 6 characters within the rules defined before
+([a-f0-9]{6}      If you dont know what an alphanumeric is, we were in the same boat, luckily its simple. An alphanumeric means numbers and or letters, really its just another one of those fancy words so dont worry about it. Now matching alphanumerics whith regex is super duper simple, regex makes it really easy using whats called a through operator a - , usually in code a dash only ever means substration, but in regex 3-7 would not be -4 it would mean numbers 3 through 7 including 3 and 7, I.E 3,4,5,6,7, it would catch all of them. Now that you know this, this part of the regex may be less scary to look at. We have an opening and closing bracket, which work almost the same as javascript brackets would in most cases, meaning we are opening an expresion, function, type, etc... and we have some square brackets aswell, which you may also think about alike to javascript, when we use square brackets in javascript we are almost always working with an array, and regex works similarly to that. lets say we want to define a through c, we could code this: [a-c], it works similary to javascript becuase a through c would look like this: ["a","b","c"] in javascript, we just get to skip some steps. This also works the same with numbers. But in our regex we have a-f 0-9 with nothing inbetween them. This means nothing at all, we are actually defining what we want the text to look like when we are matching it, it should be a letter a through f, followed by a number 0-9, I.E.: f7, e4, a2, b9. anything within the rules defined would be acceptable. Finally we have a set of {Curely brackets} with the number 6 in it. In regex this means our before defined string must only contain 6 characters total, I.E.: f7 e4 a2 , I added spaced between each set of letter and number to see this easier. But I think you get the point.  
 
-### part 3
+### Or_Operator
 
- |  [a-f0-9]{3}   " | "    meanning or again any character a-f or number 0-9 and {3}, 3 characters within these rules.
+|[a-f0-9]{3})      The OR operator in regex works the same as in javascrip | meaing exactly what is says or, two different options which are both perfectly acceptable. So we have the or operator, and then we have another alphanumeric matcher which is almost exactly the same as the last one, except we have a bracket with a 3 in it, meaning match 3 characters total. So in total we have this: ([a-f0-9]{6}|[a-f0-9]{3}), which means match a string of 6 alphanumeric characters, in the pattern: anything a-f followed by a number 0-9, and there can be 6 characters in that pattern, OR, 3 characters matching the pattern: any a-f followed by 0-9, with a total of 3 characters, this one specifcly would be the binaries, which usualy are raised to the power of something but dont worry about that for now. And finally a closing bracket, to close our expression.
 
+### breaking_the_regex
 
-### part 4
+So we are at the end, we have covered really everything, but I want to match sure this regex hex code matcher wont allow for extra characters at the end! We have the begining covered, there must always be a hashtag followed by our hex pattern. But whats to stop our code from matching a hex code followed by something like a , or extra letters or spaces... That is where the $ and the closing / come in handy. The # which is another assertion, matches the end of input, meaning nothing follows this I.E. if I wrote /t$/, does not match the "t" in "eater", but does match it in "eat". Finally the closing / meaning close our regular expresion. Then we would continue writing our javascript code!
 
-4: $/ essentialy ending the regex...
+### Testing
 
-### test
+  you can test and work with the specific regex, with the code I have provided in the github repository [HERE](https://github.com/whotf1/regexHexMatcher). This code snippet requires node to be installed, run the js file in your favorite IDE or console, mine is bash, and run {node main.js} and you will see the outputs!
+  I usually find working with the code is much better for my learning than just reading about it, so give it a try and mess around with it and see what you make happen!
 
-  you can test and work with the specific regex, with the code I have provided in the github repository [HERE](https://github.com/whotf1/regexHexMatcher). This code snippet requires node to be installed, run the js file in your favorite IDE or console, mine is bash, and run node main.js and you will see the outputs!
+### About_Me
+
+I am a Web Developer, whom mainly likes to work in the backend. I love coding and am coding all the time, and try to post my work all the time! I'm trying to make a contribution to the community and am learning how to do so in my most helpfull way possible. Thats why you just read through this lengthy tutorial! Currently at the time of making this I'm about to graduate from the University of Minnesota Coding Bootcamp, and the hexcode regex we discussed today was provided by them, you can checkout the University of Minnesota Bootcamps [HERE](https://bootcamp.umn.edu/coding/landing-ftpt/?s=Google-Brand_Tier-1_&dki=Learn%20Coding%20and%20More%20Online&pkw=university%20of%20minnesota%20coding%20bootcamp&pcrid=463308464109&pmt=e&utm_source=google&utm_medium=cpc&utm_campaign=GGL%7CUNIVERSITY-OF-MINNESOTA%7CSEM%7CCODING%7C-%7COFL%7CTIER-1%7CALL%7CBRD%7CEXACT%7CCore%7CBootcamp&utm_term=university%20of%20minnesota%20coding%20bootcamp&s=google&k=university%20of%20minnesota%20coding%20bootcamp&utm_adgroupid=110388935482&utm_locationphysicalms=9019535&utm_matchtype=e&utm_network=g&utm_device=c&utm_content=463308464109&utm_placement=&gclid=Cj0KCQiApKagBhC1ARIsAFc7Mc663xzMbdnWDh5mE7TDz22CwP4_K5YIXtt0olQBk5xWzVrdGd8uWVYaAgEbEALw_wcB&gclsrc=aw.ds). If your interested at looking at some of my other work you can visit my GitHub [HERE](https://github.com/MiloCohenElyanow), and a repository for this project can be found [HERE](https://github.com/MiloCohenElyanow/regexHexMatcher). If you want to get in contact with me my portfolio is listed on my github profile and you can contact me from there hassle free!
